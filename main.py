@@ -2,20 +2,13 @@ import asyncio
 import ollama
 from ollama import ChatResponse
 
-from src.functions import available_functions
-from src.tools_description import all_tools
+from src.functions import available_functions, all_tools
+from src.funcs_description import system_prompt
 
 model = 'llama3.2:1b'
 
 
 messages = [
-    {
-        'role': 'system', 'content': (
-            "You are an AI assistant with access to the following functions: "
-            "add_two_numbers, subtract_two_numbers, multiply_two_numbers, divide_two_numbers, total. "
-            "Use these functions to solve math problems."
-        )
-    },
     {'role': 'user', 'content': 'Calculate total: 3 plus 1, 5 minus 2, 7 times 3, and eight divided by two'}
 ]
 
@@ -27,7 +20,7 @@ async def main():
     response: ChatResponse = await client.chat(
         model,
         messages=messages,
-        tools=all_tools,
+        tools=list(available_functions.values()),
     )
 
     if response.message.tool_calls:

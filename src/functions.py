@@ -17,6 +17,13 @@ def divide_two_numbers(a, b):
 def total(nums):
     return sum(map(int, nums))
 
+all_tools = [
+    add_two_numbers,
+    subtract_two_numbers,
+    multiply_two_numbers,
+    divide_two_numbers,
+    total,
+]
 
 available_functions = {
     'add_two_numbers': add_two_numbers,
